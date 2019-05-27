@@ -1,0 +1,35 @@
+﻿@model MVC.Models.Examples.ViewModelForLogin
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Login</h1>
+
+@{
+    Html.BeginForm("LoginPost", "Home");
+    {
+        <label for="UserName" style="width: 110px">UserName: </label> @Html.TextArea("userName")
+        <button type="submit" class="btn btn-primary">Post</button>
+
+        if (Model.ipCount > 9 || Model.userCount > 2)
+        {
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <img id="img-captcha" src="~/get-captcha-image" />
+                </div>
+                <input type="text" class="form-control" placeholder="Captcha Code" asp-for="CaptchaCode" maxlength="4" />
+                <span asp-validation-for="CaptchaCode" class="text-danger"></span>
+            </div>
+        }
+    }
+
+    Html.EndForm();
+}
+
+@{
+    <h2>@Model.ipMessage</h2>
+    <h2>@Model.userMessage</h2>
+    <h2>@Model.ErrorMessage</h2>
+}
+
